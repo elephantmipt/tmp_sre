@@ -24,13 +24,15 @@ def main(config: Config):
 
     iter_people = cycle([["s.petrov", "v.ivanov"], ["s.petrov", "v.ivanov"][::-1]])
 
+    team = requests.get(f"{config.host}/api/v0/teams/biba%20team").json()
+    print(team)
     for p_person, s_person in iter_people:
         next_date = cur_date + datetime.timedelta(days=config.delta)
         resp_1 = requests.post(
             f"{config.host}/api/v0/events",
             json={
                 "user": p_person,
-                "team": "biba_team",
+                "team": "biba team",
                 "role": "primary",
                 "start": int(time.mktime(cur_date.timetuple())),
                 "end": int(time.mktime(next_date.timetuple())),
@@ -43,12 +45,15 @@ def main(config: Config):
             f"{config.host}/api/v0/events",
             json={
                 "user": s_person,
-                "team": "biba_team",
+                "team": "biba team",
                 "role": "secondary",
                 "start": int(time.mktime(cur_date.timetuple())),
                 "end": int(time.mktime(next_date.timetuple())),
             },
         )
+        if not resp_1.ok:
+            print(resp_1.content)
+            break
         cur_date = next_date
         if cur_date > end:
             break
