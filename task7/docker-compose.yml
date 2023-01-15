@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  prometheus:
+    image: prom/prometheus
+    hostname: prometheus
+    ports:
+      - "9090:9090"
+  
+  grafana:
+    hostname: grafana
+    image: grafana/grafana
+    environment:
+      - GF_DATE_FORMATS_DEFAULT_TIMEZONE="Europe/Moscow"
+      - GF_DASHBOARDS_VERSIONA_TO_KEEP=30
+      - GF_USERS_DEFAULT_THEME="dark"
+    ports:
+      - "3000:3000"
