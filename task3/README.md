@@ -11,4 +11,8 @@
 
 ![](/task3/assets/node_prom.png)
 
-3. 
+3. Добавим в docker-compose.yml еще один образ с питоном. В нем будем писать в файл случайное число каждые 3 секунды. Подробнее в `writer.py`. Пошарим вольюм `/mnt` между `writer` и `node-exporte`, добавим `--collector.textfile.directory=/mnt/text.txt`.
+
+В итоге:
+
+![](/task3/assets/)
